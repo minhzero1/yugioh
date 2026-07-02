@@ -5,7 +5,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libsqlite3-dev \
     libzip-dev \
-    && docker-php-ext-install pdo pdo_sqlite zip
+    libxml2-dev \
+    libonig-dev \
+    && docker-php-ext-install pdo pdo_sqlite zip mbstring xml ctype tokenizer fileinfo
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
