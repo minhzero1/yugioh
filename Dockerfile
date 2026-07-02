@@ -20,6 +20,4 @@ RUN chmod -R 775 storage bootstrap/cache
 
 RUN touch database/database.sqlite
 
-EXPOSE 8080
-
-CMD php artisan config:clear && php artisan migrate --force && php -d display_errors=1 -d error_reporting=E_ALL artisan serve --host=0.0.0.0 --port=8080
+CMD php artisan config:clear && php artisan migrate --force && php -d display_errors=1 -d error_reporting=E_ALL artisan serve --host=0.0.0.0 --port=$PORT
