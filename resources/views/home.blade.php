@@ -1,90 +1,43 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <title>Yu-Gi-Oh Database</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #1a1a2e;
-            color: #eee;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #ffd700;
-        }
-        .search-box {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .search-box input {
-            padding: 10px;
-            width: 300px;
-            border-radius: 5px;
-            border: none;
-        }
-        .search-box button {
-            padding: 10px 20px;
-            background: #ffd700;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
-        }
-        .card {
-            background: #16213e;
-            border: 1px solid #ffd700;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-        }
-        .card img {
-            max-width: 100%;
-            border-radius: 5px;
-        }
-        .card h3 {
-            color: #ffd700;
-            margin: 10px 0 5px;
-        }
-        .card p {
-            font-size: 14px;
-            margin: 3px 0;
-        }
-    </style>
-</head>
-<body>
+@extends('layouts.app')
+@section('title', 'Yu-Gi-Oh Database')
 
+@section('content')
+<section class="hero">
     <h1>YUGIOH DATABASE</h1>
-<div class="search-box">
-    <form method="GET" action="/">
-        <input type="text" name="keyword" placeholder="Nhập tên lá bài" value="{{ request('keyword') }}">
-        <button type="submit">Tìm kiếm</button>
-    </form>
+    <p>Tra cứu nhanh chóng thông tin đầy đủ của hàng trăm lá bài Yu-Gi-Oh, kèm bản dịch tiếng Việt và chỉ số chính xác từ cơ sở dữ liệu chính thức.</p>
+    <a href="/tra-cuu" class="hero-cta">🔍 Bắt đầu tra cứu</a>
+</section>
+
+<div class="stats">
+    <div class="stat-item">
+        <div class="num">{{ number_format($totalCards) }}</div>
+        <div class="label">Lá bài trong cơ sở dữ liệu</div>
+    </div>
+    <div class="stat-item">
+        <div class="num">9</div>
+        <div class="label">Loại thẻ bài</div>
+    </div>
+    <div class="stat-item">
+        <div class="num">Hằng ngày</div>
+        <div class="label">Tự động cập nhật</div>
+    </div>
 </div>
 
-    <div class="card-grid">
-        @foreach ($cards as $card)
-    <a href="/card/{{ $card->id }}" style="text-decoration: none; color: inherit;">
-        <div class="card">
-            @if ($card->image)
-                <img src="{{ $card->image }}">
-            @endif
-            <h3>{{ $card->name }}</h3>
-            <p>Loại: {{ $card->type }}</p>
-            <p>Thuộc tính: {{ $card->attribute }}</p>
-            <p>Level: {{ $card->level }}</p>
-            <p>ATK/DEF: {{ $card->atk }} / {{ $card->def }}</p>
-            <p>{{ $card->effect }}</p>
-        </div>
-    </a>
-@endforeach
+<section class="featured">
+    <h2>Lá bài nổi bật</h2>
+    <p class="sub">Một vài gợi ý ngẫu nhiên từ kho dữ liệu</p>
+    <div class="featured-grid">
+        @foreach ($featuredCards as $card)
+            <a href="/card/{{ $card->id }}" class="featured-card">
+                <img src="{{ $card->image }}" loading="lazy">
+                <div class="name">{{ $card->name }}</div>
+            </a>
+        @endforeach
+    </div>
+    <div class="section-footer-cta">
+        <a href="/tra-cuu">Xem toàn bộ thẻ bài →</a>
+    </div>
+</section>
 
-</body>
-</html>
+<footer>Yu-Gi-Oh Database — Dự án cá nhân, dữ liệu tổng hợp từ YGOPRODeck</footer>
+@endsection
