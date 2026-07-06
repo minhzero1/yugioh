@@ -10,6 +10,60 @@ h1, h2, h3, .nav-logo, .hero h1 {
     --gold: #ffd700;
     --border: #2a2a45;
 }
+/* ===== BACKGROUND ĐỘNG ===== */
+body {
+    position: relative;
+    background: #0a0a16;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background:
+        radial-gradient(ellipse 800px 600px at 15% 20%, rgba(255, 215, 0, 0.10), transparent 60%),
+        radial-gradient(ellipse 700px 700px at 85% 15%, rgba(122, 45, 200, 0.14), transparent 60%),
+        radial-gradient(ellipse 900px 700px at 50% 90%, rgba(30, 80, 180, 0.12), transparent 60%),
+        radial-gradient(ellipse 600px 600px at 90% 80%, rgba(200, 40, 60, 0.08), transparent 60%),
+        linear-gradient(180deg, #0a0a16 0%, #12121f 50%, #0a0a16 100%);
+    background-size: 200% 200%, 200% 200%, 200% 200%, 200% 200%, 100% 100%;
+    animation: bgDrift 30s ease-in-out infinite;
+}
+
+@keyframes bgDrift {
+    0%   { background-position: 0% 0%, 100% 0%, 50% 100%, 100% 100%, 0 0; }
+    50%  { background-position: 30% 20%, 70% 30%, 40% 70%, 80% 60%, 0 0; }
+    100% { background-position: 0% 0%, 100% 0%, 50% 100%, 100% 100%, 0 0; }
+}
+
+/* Hoa văn lục giác mờ - gợi không khí cổ đại Ai Cập */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='104' viewBox='0 0 60 104'%3E%3Cpath d='M30 0L60 17.32V52L30 69.28L0 52V17.32Z' fill='none' stroke='%23FFD700' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 60px 104px;
+}
+
+/* Các hạt sáng trôi nhẹ */
+.particle {
+    position: fixed;
+    z-index: -1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,215,0,0.6), transparent 70%);
+    pointer-events: none;
+    animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.3; }
+    100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+}
 * { box-sizing: border-box; }
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
@@ -21,7 +75,7 @@ body {
 /* Navbar */
 .navbar {
     position: sticky; top: 0; z-index: 100;
-    background: rgba(18, 18, 31, 0.95);
+    background: rgba(10, 10, 22, 0.75);
     backdrop-filter: blur(8px);
     border-bottom: 2px solid var(--gold);
 }
@@ -261,4 +315,10 @@ body {
 }
 .filter-bar button:active, .hero-cta:active {
     transform: scale(0.97);
+}
+/* Đảm bảo các khối card nổi bật trên nền động */
+.card, .featured-card, .filter-bar, .detail-container,
+.faq-item, .contact-box, .stat-item {
+    position: relative;
+    z-index: 1;
 }
